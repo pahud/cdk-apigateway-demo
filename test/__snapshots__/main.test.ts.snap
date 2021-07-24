@@ -1,0 +1,408 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "DemoCommandOutputC3183AC8": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "curl -H 'X-Api-Key: MEjeTT0KcL1xAApouhPqB6RgbXV7ZtYp8Re9yNbN' https://",
+            Object {
+              "Ref": "Demogreetingapi01A29494",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "DemogreetingapiDeploymentStageprod7A4800E6",
+            },
+            "/greeting",
+          ],
+        ],
+      },
+    },
+    "DemogreetingapiEndpoint5EE3209A": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "Demogreetingapi01A29494",
+            },
+            ".execute-api.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            Object {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            Object {
+              "Ref": "DemogreetingapiDeploymentStageprod7A4800E6",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+  },
+  "Resources": Object {
+    "DemoDevApiKeyAA2F74D4": Object {
+      "Properties": Object {
+        "Enabled": true,
+      },
+      "Type": "AWS::ApiGateway::ApiKey",
+    },
+    "DemoMyFunc9761128E": Object {
+      "DependsOn": Array [
+        "DemoMyFuncServiceRole43F323D8",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "ZipFile": "
+import json
+def handler(event, context):
+      return {
+        'statusCode': 200,
+        'body': json.dumps('Hello CDK from Lambda!')
+      }",
+        },
+        "Handler": "index.handler",
+        "ReservedConcurrentExecutions": 100,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "DemoMyFuncServiceRole43F323D8",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.7",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "DemoMyFuncServiceRole43F323D8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DemoVipApiKey36D3DDB7": Object {
+      "Properties": Object {
+        "Enabled": true,
+        "Value": "MEjeTT0KcL1xAApouhPqB6RgbXV7ZtYp8Re9yNbN",
+      },
+      "Type": "AWS::ApiGateway::ApiKey",
+    },
+    "Demogreetingapi01A29494": Object {
+      "Properties": Object {
+        "Name": "greeting-api",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "DemogreetingapiAccount36FE2EBD": Object {
+      "DependsOn": Array [
+        "Demogreetingapi01A29494",
+      ],
+      "Properties": Object {
+        "CloudWatchRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "DemogreetingapiCloudWatchRole6A2B33E9",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+    },
+    "DemogreetingapiCloudWatchRole6A2B33E9": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DemogreetingapiDeployment5A140707d6731421ae6023eb8addc6f40133a4c7": Object {
+      "DependsOn": Array [
+        "DemogreetingapigreetingGETCBF4CFD7",
+        "DemogreetingapigreetingBBB7525A",
+      ],
+      "Properties": Object {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": Object {
+          "Ref": "Demogreetingapi01A29494",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "DemogreetingapiDeploymentStageprod7A4800E6": Object {
+      "Properties": Object {
+        "DeploymentId": Object {
+          "Ref": "DemogreetingapiDeployment5A140707d6731421ae6023eb8addc6f40133a4c7",
+        },
+        "RestApiId": Object {
+          "Ref": "Demogreetingapi01A29494",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "DemogreetingapiDeveloperUsagePlanBB65CF05": Object {
+      "Properties": Object {
+        "Quota": Object {
+          "Limit": 20000,
+          "Period": "DAY",
+        },
+        "Throttle": Object {
+          "BurstLimit": 400,
+          "RateLimit": 200,
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlan",
+    },
+    "DemogreetingapiDeveloperUsagePlanUsagePlanKeyResourceE566B4D9": Object {
+      "Properties": Object {
+        "KeyId": Object {
+          "Ref": "DemoDevApiKeyAA2F74D4",
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": Object {
+          "Ref": "DemogreetingapiDeveloperUsagePlanBB65CF05",
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+    },
+    "DemogreetingapiVipUsagePlanE0B71904": Object {
+      "Properties": Object {
+        "ApiStages": Array [
+          Object {
+            "ApiId": Object {
+              "Ref": "Demogreetingapi01A29494",
+            },
+            "Stage": Object {
+              "Ref": "DemogreetingapiDeploymentStageprod7A4800E6",
+            },
+            "Throttle": Object {
+              "/greeting/GET": Object {
+                "BurstLimit": 2,
+                "RateLimit": 10,
+              },
+            },
+          },
+        ],
+        "Quota": Object {
+          "Limit": 10000,
+          "Period": "DAY",
+        },
+        "Throttle": Object {
+          "BurstLimit": 200,
+          "RateLimit": 100,
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlan",
+    },
+    "DemogreetingapiVipUsagePlanUsagePlanKeyResource469B7E4C": Object {
+      "Properties": Object {
+        "KeyId": Object {
+          "Ref": "DemoVipApiKey36D3DDB7",
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": Object {
+          "Ref": "DemogreetingapiVipUsagePlanE0B71904",
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+    },
+    "DemogreetingapigreetingBBB7525A": Object {
+      "Properties": Object {
+        "ParentId": Object {
+          "Fn::GetAtt": Array [
+            "Demogreetingapi01A29494",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "greeting",
+        "RestApiId": Object {
+          "Ref": "Demogreetingapi01A29494",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "DemogreetingapigreetingGETApiPermissionTesttestDemogreetingapi132F5AEBGETgreetingD11245E4": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "DemoMyFunc9761128E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "Demogreetingapi01A29494",
+              },
+              "/test-invoke-stage/GET/greeting",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "DemogreetingapigreetingGETApiPermissiontestDemogreetingapi132F5AEBGETgreeting2AFCB9AB": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "DemoMyFunc9761128E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "Demogreetingapi01A29494",
+              },
+              "/",
+              Object {
+                "Ref": "DemogreetingapiDeploymentStageprod7A4800E6",
+              },
+              "/GET/greeting",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "DemogreetingapigreetingGETCBF4CFD7": Object {
+      "Properties": Object {
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": Object {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "DemoMyFunc9761128E",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": Object {
+          "Ref": "DemogreetingapigreetingBBB7525A",
+        },
+        "RestApiId": Object {
+          "Ref": "Demogreetingapi01A29494",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+  },
+}
+`;
